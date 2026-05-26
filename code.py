@@ -35,9 +35,11 @@ prior_raw       = np.exp(-(mu0 - y_list)**2 / (2 * sigma0**2))
 observed_raw    = np.exp(-(x   - y_list)**2 / (2 * sigma **2))
 posterior_raw   = np.exp(-.5*((y_list - mu0)**2 / sigma0**2 + (y_list - x)**2 / sigma**2))
 
-prior_modifier      = 1 / np.sqrt(2 * np.pi * sigma0)
-observed_modifier   = 1 / np.sqrt(2 * np.pi * sigma)
-posterior_modifier  = 1 / np.sqrt(2 * np.pi * posterior_raw.std())
+
+prior_modifier      = 1 / (sigma0 * np.sqrt(2 * np.pi))
+observed_modifier   = 1 / (sigma  * np.sqrt(2 * np.pi))
+posterior_modifier  = 1 / (posterior_raw.std() * np.sqrt(2 * np.pi))
+
 
 prior       = prior_raw     * prior_modifier
 observed    = observed_raw  * observed_modifier
