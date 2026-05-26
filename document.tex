@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{xcolor}      % color support
+\usepackage{pagecolor}   % change page background
+\usepackage{placeins} % Makes float barriers a thing
+\usepackage{svg} % This makes .svg files work
+\usepackage[utf8]{inputenc}
+\usepackage[backend=biber,style=alphabetic]{biblatex} 
+
+\usepackage{mathrsfs} %  For the Laplace transform
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+
+% Title stuff
+\title{Tattoo Derivation}
+\author{Spencer Halle}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+\newpage
+
+We start with Bayes' theory:
+
+\begin{align*}
+   P(A|B) =& \frac{P(B|A) P(A)}{P(B)}\\ 
+\end{align*}
+
+\begin{itemize}
+    \item Where $P(A|B)$ is equal to the probability of some value A given observation B.
+    \item Where $P(B|A)$ represents the probability of observation of observation B if value A where true
+    \item Where $P(A)$ represents the probability of value A period
+    \item Where $P(B)$ represents the probability of observation B period
+\end{itemize}
+
+If I want to guess the true value of a location on a number line, I could set $A=\theta$, where $\theta$ is the true location, while $x$ is the measured value. If we just want good looking curves, and the ability to scale things so it's asthetically pleasing on a graph, we don't necessarily need to worry about that denominator, as it's a constant and can be thrown out, but then that makes it so we can't say $=$, instead we have to change it to $\propto$.
+
+\begin{align*}
+   P(A|B) =& \frac{P(B|A) P(A)}{P(B)}\\ 
+   P(\theta|x) =& \frac{P(x|\theta) P(\theta)}{P(x)}\\ 
+   P(\theta|x) \propto& P(x|\theta) P(\theta)\\
+\end{align*}
+
+And from that, we can say that:
+\begin{itemize}
+    \item $P(\theta|x)$ represents the probability that a given a given value is theta if we observe x
+    \item $P(x|\theta)$ represents the probability you would measure x if a given value were to be $\theta$
+    \item $P(\theta)$ represents the probability of the true predicted value being at point $\theta$ based on our prior
+\end{itemize}
+
+From there, we can take what we know the Gaussian distribution looks like, and fill in some things:
+
+\begin{align*} 
+   P(x|\theta) \propto& \exp(-\frac{(\theta - \mu_0)^2}{2 \sigma_0^2})\\
+   P(\theta) \propto& \exp(-\frac{(\theta - x)^2}{2 \sigma^2})\\
+\end{align*}
+
+And we can say of each of those variables that:
+
+\begin{itemize}
+    \item $\mu_0$ represents the prior's mean
+    \item $\sigma_0$ represents the prior's standard deviation
+    \item $\sigma$ represents the standard deviation of the measurement
+\end{itemize}
+
+Which yields the expression below:
+\begin{align*}
+    P(\theta|x) \propto& \exp(-\frac{(\theta - \mu_0)^2}{2 \sigma_0^2})
+    exp(-\frac{(\theta - x)^2}{2 \sigma^2})\\
+    P(\theta|x) \propto& \exp(-\frac{(\theta - \mu_0)^2}{2 \sigma_0^2}-\frac{(\theta - x)^2}{2 \sigma^2})\\
+    P(\theta|x) \propto& \exp(-\frac{1}{2}(\frac{(\theta - \mu_0)^2}{\sigma_0^2}+\frac{(\theta - x)^2}{\sigma^2}))\\
+\end{align*}
+
+But now, I need to get those normalization constants so things look right when plotting, so maybe
+
+And that, I can manipulate and plot, which allows me to make a figure for my tattoo, so long as I control all the variables
+
+\end{document} 
+
+
