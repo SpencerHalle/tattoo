@@ -23,6 +23,9 @@
 \maketitle
 \newpage
 
+\chapter{Attempt 1}
+
+\section{Derivation}
 We start with Bayes' theory:
 
 \begin{align*}
@@ -77,6 +80,54 @@ Which yields the expression below:
 But now, I need to get those normalization constants so things look right when plotting, so maybe
 
 And that, I can manipulate and plot, which allows me to make a figure for my tattoo, so long as I control all the variables
+
+\section{Results}
+
+I could be wrong, but I don't think my derivation is working right, I seem to get a posterior distribution that doesn't sum to 1, which is a problem.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{distributions_1.png}
+    \caption{The prior is blue, the posterior is green, and the observed is orange. This is in a wierd format because this is a bit of what I want the tattoo to actually look like.}
+    \label{fig:placeholder}
+\end{figure}
+
+\chapter{Attempt 2}
+
+\section{Derivation}
+
+I recognize the above didn't pan out. I got some outside help, and have decided to look at how I calculated the $\sigma_{posterior}$ term, which I did in code, but not here.
+
+To do this, I will start with where I was above:
+
+\begin{align*}
+    P(\theta|x) \propto& \exp(-\frac{1}{2}(\frac{(\theta - \mu_0)^2}{\sigma_0^2}+\frac{(\theta - x)^2}{\sigma^2}))\\
+\end{align*}
+
+I know that a standard Gaussian distribution will take the form
+
+\begin{align*}
+    & \exp(-\frac{1}{2}\frac{(\theta - \mu)^2}{\sigma^2})\\
+\end{align*}
+
+So, by expanding this out, I could algebraically solve for what my new $\sigma_{posterior}$ will be, then I can just use that as my sigma in the code, because I think that's where things go wrong.
+
+To get this, I'm going to first start expanding this all out and making an equality, this will help me. I'm also going to separate the -.5 because it's the same in both, so it doesn't super matter, that's a constant. I can also remove the $\exp$ by taking the natural log of both sides
+
+\begin{align*}
+    \exp(-\frac{1}{2}\frac{(\theta - \mu_{posterior})^2}{\sigma_{posterior}^2})
+    =& 
+    \exp(-\frac{1}{2}(\frac{(\theta - \mu_0)^2}{\sigma_0^2}+\frac{(\theta - x)^2}{\sigma^2}))\\
+    \exp(-\frac{1}{2})\exp(\frac{(\theta - \mu_{posterior})^2}{\sigma_{posterior}^2})
+    =& 
+    \exp(-\frac{1}{2})\exp((\frac{(\theta - \mu_0)^2}{\sigma_0^2}+\frac{(\theta - x)^2}{\sigma^2}))\\
+    \exp(\frac{(\theta - \mu_{posterior})^2}{\sigma_{posterior}^2})
+    =& 
+    \exp(\frac{(\theta - \mu_0)^2}{\sigma_0^2}+\frac{(\theta - x)^2}{\sigma^2})\\
+    \frac{(\theta - \mu_{posterior})^2}{\sigma_{posterior}^2}
+    =& 
+    \frac{(\theta - \mu_0)^2}{\sigma_0^2}+\frac{(\theta - x)^2}{\sigma^2}\\
+\end{align*}
 
 \end{document} 
 
